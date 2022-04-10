@@ -1,0 +1,34 @@
+class Solution {
+    public boolean canArrange(int[] arr, int k) {
+        int memo[]=new int [k];
+        int currentRem;
+        //uing  the remainders we get to mapped to their frequencies  in array 
+        for(int currentVal: arr)
+        {
+            currentRem= (((currentVal%k)+k)%k);
+            memo[currentRem]++;
+         }
+        //now itering over the remainders frequency array to check whether both the elements of the pair have got
+            same frequency
+        for(int i=0; i<=k/2;i++)
+        {
+          //base case when the i =0  and the frequency is odd at that location   
+            if(i==0 )
+            {
+                if(memo[i]%2!=0)
+                {
+                return false;
+                }
+            }
+            else
+            {
+                int y= k-i;
+                if(memo[i]!= memo[y])
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
