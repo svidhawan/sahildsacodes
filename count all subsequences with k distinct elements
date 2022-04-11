@@ -1,0 +1,48 @@
+import java.util.*;
+
+public class Main {
+
+    public static int solution(int[] arr) {
+        // write your code here
+     HashMap<Integer,Integer> freq = new HashMap<>();
+     int largest=0;
+     int release=0;
+     for(int i=0;i<arr.length;i++)
+     {
+        int acquire= arr[i];
+       
+        if(!(freq.containsKey(acquire)))
+        {
+            freq.put(acquire,1);
+        }
+        while(freq.containsKey(acquire))
+        {
+            int discard= arr[i];
+            freq.put(discard,freq.get(discard)-1);
+            release=release +1;
+            largest++;
+            
+        }
+        if(freq.get(acquire)==0)
+        {
+            freq.remove(acquire);
+        }
+        // largest= Math.max(largest,acquire-release+1);
+        
+        
+     }
+        return largest;
+        
+    }
+    
+    public static void main(String[] args) {
+        Scanner scn = new Scanner(System.in);
+        int n = scn.nextInt();
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++) {
+            arr[i] = scn.nextInt();
+        }
+        System.out.println(solution(arr));
+    }
+
+}
