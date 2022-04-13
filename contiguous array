@@ -1,0 +1,31 @@
+    public int findMaxLength(int[] nums) {
+        HashMap<Integer,Integer> memo = new HashMap<>();
+        int answer =0;
+        int prefixSum=0;
+         memo.put(0,-1);
+        for(int x=0;x<nums.length;x++)
+        {
+         // here we use the subarray to sum k concept but we just not directly add each and every element 
+         // here we add -1 to prefixSum for every zero occurence and then take max length of largest subarray in array 
+            if(nums[x]==0)
+            {
+                prefixSum=prefixSum-1;
+            }
+            
+            else if(nums[x]==1)
+            {
+                prefixSum= prefixSum+1;
+            }
+            if(memo.containsKey(prefixSum))
+            {
+                answer= Math.max(answer,x- memo.get(prefixSum));
+            }
+            else
+            {
+                memo.put(prefixSum,x);
+            }
+        }
+        return answer;
+    }
+    
+}
