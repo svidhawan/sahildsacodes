@@ -1,0 +1,35 @@
+
+class GfG
+{
+    int maxLen(int arr[], int n)
+    {
+        // Your code here
+        HashMap<Integer,Integer> memo= new HashMap<>();
+        //here we are taking hashmap for storing array elements and their indices as we know
+        //that both positive and negative integers exist in the array so once an element repeats with a different 
+        //sign hence its sum from the position it first occurred upto now can be 0 .so we subtract its intial posution along with the repeating sum 
+        // which we attain adding integers and the last position which gives us the length in between 
+        //so we keep on finding length upto 
+        ArrayList<Integer> list= new ArrayList<>();
+        int prefixSum =0;
+        memo.put(prefixSum,-1);
+        int largest =0;
+            for (int i=0; i<arr.length;i++)
+          {
+            prefixSum= prefixSum + arr[i];
+            
+            if ((memo.containsKey(prefixSum)))
+            {
+                 largest = Math.max(largest,i-memo.get(prefixSum));
+            }
+            else 
+            {
+                memo.put(prefixSum,i);
+            }
+          }
+        
+        return largest;
+    }
+    
+     
+}
