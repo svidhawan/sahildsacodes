@@ -1,0 +1,54 @@
+class Solution
+{
+    ArrayList<Integer> countDistinct(int A[], int n, int k)
+    {
+        // code here 
+        HashMap<Integer,Integer> memo =new HashMap<>();
+        ArrayList<Integer> answer = new ArrayList<>();
+        int distinct=0;
+        for(int i=0;i<k;i++)
+        {
+            int current= A[i];
+            if(memo.containsKey(current))
+            {
+                memo.put(current,memo.get(current)+1);
+            }
+            else
+            {
+                memo.put(current,1);
+                distinct++;
+            }
+        }
+        answer.add(distinct);
+        int release=0;
+        for(int acquire=k;acquire<n;acquire++)
+        {
+            int discard =A[release];
+            memo.put(discard,memo.get(discard)-1);
+            release= release +1;
+            
+            if(memo.get(discard)==0)
+            {
+                memo.remove(discard);
+                distinct= distinct-1;
+                
+            }
+            
+            int current =A[acquire];
+            if(memo.containsKey(current))
+            {
+                memo.put(current,memo.get(current)+1);
+            }
+            else
+            {
+                memo.put(current,1);
+                distinct++;
+            }
+        
+            answer.add(distinct);
+        }
+        return answer;
+        }
+    }
+
+
