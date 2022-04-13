@@ -1,0 +1,53 @@
+class Solution {
+    public int deleteAndEarn(int[] nums) {
+        HashMap<Integer,Integer> memo = new HashMap<>();
+        Arrays.sort(nums);
+        
+        
+        int arr[]= new int[10005];
+        
+        int size=0;
+        // for(int x=0;x<=9;x++)
+        // {
+        //     arr[x]=0;
+        // }
+        // for(int i=0;i<=arr.length;i++)
+        // {
+        //     current= i;
+        //     for(int j=0; j<nums.length;j++)
+        //     {
+        //         if(current==nums[j])
+        //         {
+        //             arr[i]++;
+        //         }
+        //     }
+        // }
+        for(int x=0;x<nums.length;x++)
+        {
+            arr[nums[x]]++;
+            size=Math.max(size,nums[x]);
+        }
+
+    return points(nums,arr,0,size,memo);
+    }
+    private int points (int nums[], int freq[], int currentIndex, int size,HashMap<Integer,Integer> memo)
+    {
+        int considered =0;
+        if(currentIndex>size)
+        {
+            return 0;
+        }
+        int currentKey= currentIndex;
+        if(memo.containsKey(currentKey))
+        {
+            return memo.get(currentKey);
+        }
+        
+         considered = currentIndex*freq[currentIndex]+ points(nums,freq,currentIndex+2,size,memo);
+        int notconsidered = points(nums,freq,currentIndex+1,size,memo);
+        
+        int max= Math.max(considered,notconsidered);
+        memo.put(currentKey,max);
+        return max;
+    }
+}
