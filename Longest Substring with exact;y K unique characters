@@ -1,0 +1,49 @@
+class Solution {
+    public int longestkSubstr(String s, int k) {
+        // code here
+          HashMap<Character,Integer> memo= new HashMap<>();
+		int answer=0;
+		int release =0;
+		int distinct=0;
+		//now iterating over the string
+		for(int acquire=0;acquire<s.length();acquire++)
+		{
+		    Character current= s.charAt(acquire);
+		    if(memo.containsKey(current))
+		    {
+		        memo.put(current,memo.get(current)+1);
+		    }
+		    //in else part we add a new unique character to hashmap and increase the distinct count
+		    else
+		    {
+		        memo.put(current,1);
+		        distinct++;
+		    }
+		    //iterating while distinct is greater than k so as to decrease the distinct count to less than k 
+		    //and so we perform release operation here and increase the release pointer as distinct is still greater than k 
+		    // while meanwhile also decreasing the frequency of that character in hashmap 
+		    while(distinct>k)
+		    {
+		        Character discard= s.charAt(release);
+		        release = release +1;
+		        memo.put(discard,memo.get(discard)-1);
+			   // while decreasing the frequency of character if we come to 0 freq of a character then we remove that character 
+			   // from hashmap and also decerase the distinct count by 1 as the character is wholly removed now.
+		        if(memo.get(discard)==0)
+		        {
+		            memo.remove(discard);
+		            distinct= distinct-1;
+		        }
+		    }
+//here we calculate largest length of substring everytime disntincy character count is equal to k uniqye 
+		        if(distinct==k)
+		        {
+		        answer= Math.max(answer,acquire-release+1);
+		        }
+		            
+		    
+		    
+		}
+		  return answer==0?-1:answer;  
+    }
+}
