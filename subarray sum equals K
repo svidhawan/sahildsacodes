@@ -1,0 +1,30 @@
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        HashMap<Integer,Integer> memo = new HashMap<>();
+        int answer=0;
+        int difference=0;
+        int prefixSum=0;
+        memo.put(prefixSum,1);
+        for(int i=0;i<nums.length;i++)
+        {
+            prefixSum += nums[i];
+            difference = prefixSum-k;
+            
+            if(memo.containsKey(prefixSum-k))
+            {
+//here we are adding the previous frequency of already occured difference
+                answer= answer + memo.get(difference);
+            }
+            if(memo.containsKey(prefixSum))
+            {
+                //here we increase the frequency of already occured prefixSum
+        memo.put(prefixSum,memo.get(prefixSum)+1);
+
+            }
+            else
+            {
+                memo.put(prefixSum,1);
+            }
+        }return answer;
+    }
+}
