@@ -1,0 +1,36 @@
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        //using Iterative approach using Stack
+        List<Integer> answer = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        
+        if(root==null)
+        {
+            return answer;
+        }
+        stack.push(root);
+        
+        while(!(stack.isEmpty()))
+        {
+           
+             TreeNode currentNode = stack.pop();
+            if(currentNode.left!=null)
+            {
+                stack.push(currentNode.left);
+            }
+            
+            if(currentNode.right!=null)
+            {
+                stack.push(currentNode.right);
+            }
+            
+            answer.add(currentNode.val);
+        }
+        List<Integer> rev = new ArrayList<>();
+        for(int i= answer.size()-1;i>=0;i--)
+        {
+            rev.add(answer.get(i));
+        }
+     return rev;    
+    }
+}
