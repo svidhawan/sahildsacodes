@@ -1,0 +1,28 @@
+class Solution {
+    public List<Integer> preorder(Node root) {
+        List<Integer> answer = new ArrayList<>();
+        Stack<Node> stack = new Stack<>();
+        if(root==null)
+        {
+            return answer;
+        }
+        
+        stack.push(root);
+        while(!(stack.isEmpty()))
+        {
+            Node currentNode= stack.pop();
+            answer.add(currentNode.val);
+            
+            //retreiving the list of children a node has 
+           List <Node> children = root.children;
+            
+        //traversing the list in opposite direction so the last child will be pushed first and first in last so that when it gets popped out it comes first after root node
+            for(int i = children.size()-1; i>=0;i--)
+            {
+                Node currentChild = children.get(i);
+                stack.push(currentChild);
+            }
+        }
+       return answer; 
+    }
+}
